@@ -89,6 +89,55 @@ float CalcTree (Node* Tree) {
     return 32767;
 }
 
+// Pre_order - Прямой обход дерева в глубину (корень-лево-право)
+void Pre_order(Node *tree) {
+    if (tree!=nullptr) {  // Лист - окончание рекурсии (идём, пока не встретится пустой узел)
+        // Вывод информации о вершине
+        if (tree->num != 0) {  // Вывод числа
+            printf("%f ", tree->num);
+        }
+        else if (tree->num == 0 && tree->sign != '0') {  // Вывод знака
+            printf("%c ", tree->sign);
+        }
+
+        Pre_order(tree->left);  // Рекурсивный обход левого поддерева
+        Pre_order(tree->right);  // Рекурсивный обход правого поддерева
+    }
+}
+
+// In_order - Поперечный обход дерева в глубину (лево-корень-право)
+void In_order(Node *tree) {
+    if (tree!=nullptr) {  // Лист - окончание рекурсии (идём, пока не встретится пустой узел)
+        In_order(tree->left);  // Рекурсивный обход левого поддерева
+        
+        // Вывод информации о вершине
+        if (tree->num != 0) {  // Вывод числа
+            printf("%f ", tree->num);
+        }
+        else if (tree->num == 0 && tree->sign != '0') {  // Вывод знака
+            printf("%c ", tree->sign);
+        }
+
+        In_order(tree->right);  // Рекурсивный обход правого поддерева
+    }
+}
+
+// Post_order - Обратный обход дерева в глубину (лево-право-корень)
+void Post_order(Node *tree) {
+    if (tree!=nullptr) {  // Лист - окончание рекурсии (идём, пока не встретится пустой узел)
+        Post_order(tree->left);  // Рекурсивный обход левого поддерева
+        Post_order(tree->right);  // Рекурсивный обход правого поддерева
+        
+        // Вывод информации о вершине
+        if (tree->num != 0) {  // Вывод числа
+            printf("%f ", tree->num);
+        }
+        else if (tree->num == 0 && tree->sign != '0') {  // Вывод знака
+            printf("%c ", tree->sign);
+        }
+    }
+}
+
 
 int main() {
     char expression[8];  // Строка, в которую мы считаем данные из файла
@@ -117,5 +166,14 @@ int main() {
     // printf("\nExpression: %s\n", expression);
 
     float result = CalcTree(Root);
-    printf("Result: %f", result);
+    printf("Result: %f\n", result);
+
+    printf("\nPre_order: ");
+    Pre_order(Root);
+
+    printf("\nIn_order: ");
+    In_order(Root);
+
+    printf("\nPost_order: ");
+    Post_order(Root);
 }
